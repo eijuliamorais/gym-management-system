@@ -68,18 +68,13 @@ class Aluno(models.Model):
         return self.nome
 
 class Pagamento(models.Model):
-    aluno = models.ForeignKey(
-        Aluno,
-        on_delete=models.CASCADE
-    )
-
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     valor = models.DecimalField(
-        max_digits=8,
-        decimal_places=2
+        max_digits=8, decimal_places=2,
+        null=True, blank=True,   # <-- agora pode ficar vazio
+        help_text="Deixe em branco para usar o preço do plano do aluno."
     )
-
     data_pagamento = models.DateField()
-
     status = models.CharField(
         max_length=20,
         choices=[
@@ -88,6 +83,12 @@ class Pagamento(models.Model):
             ('ATRASADO', 'Atrasado'),
         ]
     )
+
+    def save(self, *args, **kwargs):
+        # Se o valor não foi informado e o aluno tem um plano, preenche com o preço do plano
+        if self.valor is None and self.aluno and self.aluno.plano:
+            self.valor = self.aluno.plano.preco
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.aluno.nome} - {self.status}"
