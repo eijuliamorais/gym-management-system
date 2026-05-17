@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,6 +69,23 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Sistema Academia",        # Título da janela
+    "site_header": "Academia",               # Cabeçalho da página
+    "site_brand": "Sistema Academia",        # Nome da marca
+    "welcome_sign": "Bem-vindo ao sistema",  # Texto de boas vindas no login
+    "copyright": "Seu Nome / Grupo",         # Copyright no rodapé
+    "search_model": ["app.Aluno"],           # Modelo principal para busca global
+    "show_sidebar": True,                    # Exibe o menu lateral
+    "navigation_expanded": True,             # Menu lateral sempre expandido
+    "icons": {                               # Ícones para os modelos
+        "app.Aluno": "fas fa-user-graduate",
+        "app.Treino": "fas fa-dumbbell",
+        "app.Plano": "fas fa-chart-line",
+        "app.Pagamento": "fas fa-credit-card",
+    },
+}
 
 
 # Database
