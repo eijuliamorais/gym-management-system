@@ -71,11 +71,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 JAZZMIN_SETTINGS = {
-    "site_title": "Sistema Academia",        # Título da janela
-    "site_header": "Academia",               # Cabeçalho da página
-    "site_brand": "Sistema Academia",        # Nome da marca
-    "welcome_sign": "Bem-vindo ao sistema",  # Texto de boas vindas no login
-    "copyright": "Seu Nome / Grupo",         # Copyright no rodapé
+    "site_title": "No Pain Gym",        # Título da janela
+    "site_header": "No Pain Gym",               # Cabeçalho da página
+    "site_brand": "No Pain Gym",        # Nome da marca
+    "welcome_sign": "Bem-vindo ao sistema da No Pain Gym",  # Texto de boas vindas no login
+    "copyright": "No Pain Gym / Julia Morais & Luiz Francisco Sousa",         # Copyright no rodapé
     "search_model": ["app.Aluno"],           # Modelo principal para busca global
     "show_sidebar": True,                    # Exibe o menu lateral
     "navigation_expanded": True,             # Menu lateral sempre expandido
@@ -134,3 +134,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
