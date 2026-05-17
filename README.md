@@ -4,6 +4,13 @@ Sistema de gestão de academia desenvolvido com **Django** para o trabalho da di
 
 ---
 
+## Autores
+
+- [Julia Aparecida de Faria Morais](https://github.com/eijuliamorais)
+- [Luiz Francisco Sousa de Jesus](https://github.com/frannchesco)
+
+---
+
 ## Funcionalidades
 
 - **Modelagem completa** com 6 tabelas e relacionamentos (ForeignKey)
