@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Plano(models.Model):
@@ -63,6 +64,10 @@ class Aluno(models.Model):
         null=True,
         blank=True
     )
+    def clean(self):
+        super().clean()
+        if self.idade is not None and self.idade < 14:
+            raise ValidationError({'idade': 'A academia não permite o cadastro de alunos menores de 14 anos.'})
 
     def __str__(self):
         return self.nome
