@@ -23,7 +23,15 @@
             <td>{{ plano.duracao_meses }}</td>
             <td>
                 <a href="{% url 'editar_plano' plano.id %}" class="btn btn-sm btn-warning">Editar</a>
-                <a href="{% url 'excluir_plano' plano.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                <!-- Botão que abre o modal -->
+                <button type="button"
+                        class="btn btn-sm btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalExcluirPlano"
+                        data-id="{{ plano.id }}"
+                        data-nome="{{ plano.nome }}">
+                    Excluir
+                </button>
             </td>
         </tr>
         {% empty %}
@@ -32,5 +40,51 @@
         </tr>
         {% endfor %}
     </tbody>
-</table>
+</tr>
+</div>
+
+<!-- Modal de confirmação de exclusão -->
+<div class="modal fade" id="modalExcluirPlano" tabindex="-1" aria-labelledby="modalExcluirPlanoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="modalExcluirPlanoLabel">Confirmar exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o plano <strong id="nomePlanoModal"></strong>?</p>
+                <form id="formExcluirPlano" method="post" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmarExclusaoBtnPlano">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('modalExcluirPlano');
+        var nomeSpan = document.getElementById('nomePlanoModal');
+        var form = document.getElementById('formExcluirPlano');
+        var confirmBtn = document.getElementById('confirmarExclusaoBtnPlano');
+
+        modal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var nome = button.getAttribute('data-nome');
+
+            nomeSpan.textContent = nome;
+            form.action = "{% url 'excluir_plano' 0 %}".replace('0', id);
+        });
+
+        confirmBtn.addEventListener('click', function() {
+            form.submit();
+        });
+    });
+</script>
+
 {% endblock %}

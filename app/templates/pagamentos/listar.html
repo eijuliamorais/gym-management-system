@@ -25,7 +25,15 @@
             <td>{{ pag.status }}</td>
             <td>
                 <a href="{% url 'editar_pagamento' pag.id %}" class="btn btn-sm btn-warning">Editar</a>
-                <a href="{% url 'excluir_pagamento' pag.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                <!-- Botão que abre o modal -->
+                <button type="button"
+                        class="btn btn-sm btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalExcluirPagamento"
+                        data-id="{{ pag.id }}"
+                        data-nome="{{ pag.aluno.nome }}">
+                    Excluir
+                </button>
             </td>
         </tr>
         {% empty %}
@@ -35,4 +43,51 @@
         {% endfor %}
     </tbody>
 </table>
+
+<!-- Modal de confirmação de exclusão -->
+<div class="modal fade" id="modalExcluirPagamento" tabindex="-1" aria-labelledby="modalExcluirPagamentoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="modalExcluirPagamentoLabel">Confirmar exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o pagamento de <strong id="nomePagamentoModal"></strong> (R$ <span id="valorPagamentoModal"></span>)?</p>
+                <form id="formExcluirPagamento" method="post" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmarExclusaoBtnPagamento">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('modalExcluirPagamento');
+        var nomeSpan = document.getElementById('nomePagamentoModal');
+        var form = document.getElementById('formExcluirPagamento');
+        var confirmBtn = document.getElementById('confirmarExclusaoBtnPagamento');
+
+        modal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var nome = button.getAttribute('data-nome');
+            // Opcional: você pode passar também o valor do pagamento, se quiser mostrar
+            nomeSpan.textContent = nome;
+
+            // Monta a URL de exclusão
+            form.action = "{% url 'excluir_pagamento' 0 %}".replace('0', id);
+        });
+
+        confirmBtn.addEventListener('click', function() {
+            form.submit();
+        });
+    });
+</script>
+
 {% endblock %}
