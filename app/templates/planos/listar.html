@@ -1,0 +1,16 @@
+<h1>Planos</h1>
+<a href="{% url 'criar_plano' %}">Novo plano</a>
+<table border="1">
+    <tr><th>Nome</th><th>Preço</th><th>Duração (meses)</th><th>Ações</th></tr>
+    {% for plano in planos %}
+    <tr>
+        <td>{{ plano.nome }}</td>
+        <td>{{ plano.preco }}</td>
+        <td>{{ plano.duracao_meses }}</td>
+        <td>
+            <a href="{% url 'editar_plano' plano.id %}">Editar</a>
+            <a href="{% url 'excluir_plano' plano.id %}">Excluir</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

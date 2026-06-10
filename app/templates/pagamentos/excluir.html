@@ -1,0 +1,6 @@
+<h1>Excluir Pagamento</h1>
+<p>Deseja excluir o pagamento de {{ pagamento.aluno.nome }} no valor de {{ pagamento.valor }}?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Excluir</button>
+</form>

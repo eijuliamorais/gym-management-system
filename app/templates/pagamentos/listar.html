@@ -1,0 +1,17 @@
+<h1>Pagamentos</h1>
+<a href="{% url 'criar_pagamento' %}">Novo pagamento</a>
+<table border="1">
+    <tr><th>Aluno</th><th>Valor</th><th>Data</th><th>Status</th><th>Ações</th></tr>
+    {% for pag in pagamentos %}
+    <tr>
+        <td>{{ pag.aluno.nome }}</td>
+        <td>{{ pag.valor }}</td>
+        <td>{{ pag.data_pagamento }}</td>
+        <td>{{ pag.status }}</td>
+        <td>
+            <a href="{% url 'editar_pagamento' pag.id %}">Editar</a>
+            <a href="{% url 'excluir_pagamento' pag.id %}">Excluir</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

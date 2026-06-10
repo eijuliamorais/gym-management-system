@@ -1,0 +1,6 @@
+<h1>Excluir Plano</h1>
+<p>Deseja excluir o plano "{{ plano.nome }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Excluir</button>
+</form>
