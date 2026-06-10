@@ -64,9 +64,12 @@
             <a class="nav-link" href="/treinos/">Treinos</a>
             <a class="nav-link" href="/pagamentos/">Pagamentos</a>
 
-            <a class="nav-link" href="{% url 'logout' %}">
-                Sair
-            </a>
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link nav-link" style="display: inline-block; vertical-align: middle; padding: 0.5rem 0; margin: 0; background: none; border: none; color: rgba(255,255,255,0.55);">
+                    Sair
+                </button>
+            </form>
 
         </div>
 
