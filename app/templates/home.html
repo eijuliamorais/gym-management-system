@@ -1,57 +1,114 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<h1 class="mb-4">
-    Dashboard
-</h1>
-
-<div class="row">
-
-    <div class="col-md-3">
-        <a href="/alunos/" class="text-decoration-none">
-            <div class="card card-custom">
-                <div class="card-body text-center">
-                    <h2>{{ total_alunos }}</h2>
-                    <p>Total de Alunos</p>
-                </div>
+<div class="container-fluid px-0">
+    
+    <div class="row align-items-center mb-5 p-4 rounded shadow-sm" style="background-color: #0d1b2a;">
+        <div class="col-12 d-flex align-items-center gap-3">
+            <div class="bg-primary rounded-circle p-3 d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; background-color: #1b4f9c !important;">
+                <i class="fas fa-chart-pie fa-xl text-white"></i>
             </div>
-        </a>
+            <div>
+                <h1 class="fw-bold text-white mb-1" style="font-family: 'Segoe UI', system-ui; letter-spacing: -0.5px;">Dashboard</h1>
+                <p class="text-white-50 mb-0 opacity-75">Visão geral do desempenho e gerenciamento da No Pain Gym.</p>
+            </div>
+        </div>
     </div>
 
-    <div class="col-md-3">
-        <a href="/planos/" class="text-decoration-none">
-            <div class="card card-custom">
-                <div class="card-body text-center">
-                    <h2>{{ total_planos }}</h2>
-                    <p>Planos</p>
-                </div>
-            </div>
-        </a>
-    </div>
+    <div class="row g-4">
 
-    <div class="col-md-3">
-        <a href="/treinos/" class="text-decoration-none">
-            <div class="card card-custom">
-                <div class="card-body text-center">
-                    <h2>{{ total_treinos }}</h2>
-                    <p>Treinos</p>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <a href="{% url 'listar_alunos' %}" class="text-decoration-none text-reset">
+                <div class="card card-dashboard h-100 border-0 shadow-sm border-start border-4 rounded-3" style="border-color: #1b4f9c !important;">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted text-uppercase fw-bold small tracking-wider">Total de Alunos</span>
+                            <h2 class="fw-bold display-6 my-2 text-dark">{{ total_alunos }}</h2>
+                            <span class="text-success small fw-medium"><i class="fas fa-arrow-up me-1"></i>Membros ativos</span>
+                        </div>
+                        <div class="bg-light rounded-3 p-3 text-primary" style="color: #1b4f9c !important;">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </a>
-    </div>
+            </a>
+        </div>
 
-    <div class="col-md-3">
-        <a href="/pagamentos/" class="text-decoration-none">
-            <div class="card card-custom">
-                <div class="card-body text-center">
-                    <h2>{{ total_pagamentos }}</h2>
-                    <p>Pagamentos</p>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <a href="{% url 'listar_planos' %}" class="text-decoration-none text-reset">
+                <div class="card card-dashboard h-100 border-0 shadow-sm border-start border-4 rounded-3" style="border-color: #4a5568 !important;">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted text-uppercase fw-bold small tracking-wider">Planos</span>
+                            <h2 class="fw-bold display-6 my-2 text-dark">{{ total_planos }}</h2>
+                            <span class="text-muted small fw-medium">Modalidades criadas</span>
+                        </div>
+                        <div class="bg-light rounded-3 p-3 text-secondary">
+                            <i class="fas fa-id-card fa-2x"></i>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </a>
-    </div>
+            </a>
+        </div>
 
+        <div class="col-12 col-sm-6 col-xl-3">
+            <a href="{% url 'listar_treinos' %}" class="text-decoration-none text-reset">
+                <div class="card card-dashboard h-100 border-0 shadow-sm border-start border-4 rounded-3" style="border-color: #1b4f9c !important;">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted text-uppercase fw-bold small tracking-wider">Treinos</span>
+                            <h2 class="fw-bold display-6 my-2 text-dark">{{ total_treinos }}</h2>
+                            <span class="text-muted small fw-medium">Fichas de exercícios</span>
+                        </div>
+                        <div class="bg-light rounded-3 p-3 text-primary" style="color: #1b4f9c !important;">
+                            <i class="fas fa-dumbbell fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <a href="{% url 'listar_pagamentos' %}" class="text-decoration-none text-reset">
+                <div class="card card-dashboard h-100 border-0 shadow-sm border-start border-4 rounded-3" style="border-color: #2d3748 !important;">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted text-uppercase fw-bold small tracking-wider">Pagamentos</span>
+                            <h2 class="fw-bold display-6 my-2 text-dark">{{ total_pagamentos }}</h2>
+                            <span class="text-success small fw-medium"><i class="fas fa-check-circle me-1"></i>Fluxo atualizado</span>
+                        </div>
+                        <div class="bg-light rounded-3 p-3 text-dark">
+                            <i class="fas fa-dollar-sign fa-2x px-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
 </div>
+{% endblock %}
 
+{% block styles %}
+<style>
+    .tracking-wider {
+        letter-spacing: 0.05em;
+    }
+    
+    .card-dashboard {
+        background-color: #ffffff;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+    }
+
+    .card-dashboard:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .bg-light {
+        background-color: #f8f9fa !important;
+    }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 {% endblock %}

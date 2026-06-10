@@ -5,75 +5,186 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - No Pain Gym</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --bg-dark: #0d1b2a;
+            --primary-blue: #1b4f9c;
+            --primary-hover: #163f7a;
+            --card-bg: #ffffff;
+        }
+
         body {
-            background-color: #0d1b2a;
+            background-color: var(--bg-dark);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Esferas de luz modernas ao fundo (Glow Effect) */
+        body::before, body::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(27, 79, 156, 0.15);
+            filter: blur(80px);
+            z-index: 0;
+        }
+        body::before { top: -50px; left: -50px; }
+        body::after { bottom: -50px; right: -50px; }
+
+        .login-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            padding: 15px;
         }
 
         .login-card {
-            width: 100%;
-            max-width: 450px;
+            background-color: var(--card-bg);
             border: none;
-            border-radius: 15px;
-            box-shadow: 0 0 25px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
         }
 
         .logo {
-            width: 120px;
-            height: 120px;
+            width: 250px;
+            height: 250px;
             object-fit: contain;
+            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1));
         }
 
+        /* Customização dos Inputs Modernos (Floating Labels) */
+        .form-floating > .form-control {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding-left: 45px; /* Espaço para o ícone */
+            font-weight: 500;
+            color: #1f2937;
+            height: 58px;
+            transition: all 0.2s ease;
+        }
+
+        .form-floating > .form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(27, 79, 156, 0.15);
+        }
+
+        /* Ajustando a posição da label por conta do espaço do ícone */
+        .form-floating > label {
+            padding-left: 45px;
+            color: #9ca3af;
+        }
+
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label {
+            padding-left: 45px;
+            color: var(--primary-blue);
+        }
+
+        /* Posicionamento dos ícones dentro dos inputs */
+        .input-group-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            color: #9ca3af;
+            transition: color 0.2s ease;
+        }
+
+        .form-floating:focus-within .input-group-icon {
+            color: var(--primary-blue);
+        }
+
+        /* Botão estilizado */
         .btn-login {
-            background-color: #1b4f9c;
+            background-color: var(--primary-blue);
             border: none;
+            border-radius: 12px;
+            height: 52px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(27, 79, 156, 0.3);
         }
 
         .btn-login:hover {
-            background-color: #163f7a;
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(27, 79, 156, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(1px);
         }
     </style>
 </head>
 
 <body>
 
-<div class="card login-card">
-    <div class="card-body p-5">
+<div class="login-container">
+    <div class="card login-card">
+        <div class="card-body p-4 p-sm-5">
 
-        <div class="text-center mb-4">
+            <div class="text-center mb-4">
+                <img src="/static/img/logo.png" alt="Logo No Pain Gym" class="logo mb-3">
+                <h3 class="fw-bold text-dark mb-1" style="letter-spacing: -0.5px;">No Pain Gym</h3>
+                <p class="text-muted small">Transforme disciplina em resultado.</p>
+            </div>
 
-            <img src="/static/img/logo.png" alt="Logo" class="logo">
+            <form method="post" autocomplete="off">
+                {% csrf_token %}
 
-            <h2 class="mt-3">
-                No Pain Gym
-            </h2>
+                <div class="form-floating mb-3 position-relative">
+                    <i class="fa-solid fa-user input-group-icon"></i>
+                    <input type="text" name="username" class="form-control" id="id_username" placeholder="Usuário" required>
+                    <label for="id_username">Usuário ou E-mail</label>
+                </div>
 
-            <p class="text-muted">
-                Transforme disciplina em resultado.
-            </p>
+                <div class="form-floating mb-4 position-relative">
+                    <i class="fa-solid fa-lock input-group-icon"></i>
+                    <input type="password" name="password" class="form-control" id="id_password" placeholder="Senha" required>
+                    <label for="id_password">Sua Senha</label>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rememberMe" style="cursor: pointer;">
+                        <label class="form-check-label text-muted small" for="rememberMe" style="cursor: pointer; user-select: none;">
+                            Lembrar de mim
+                        </label>
+                    </div>
+                    <a href="#" class="text-decoration-none small fw-medium" style="color: var(--primary-blue);">Esqueceu a senha?</a>
+                </div>
+
+                <button type="submit" class="btn btn-login text-white w-100 d-flex align-items-center justify-content-center gap-2">
+                    <span>Entrar na Conta</span>
+                    <i class="fa-solid fa-arrow-right-to-bracket small"></i>
+                </button>
+            </form>
 
         </div>
-
-        <form method="post">
-
-            {% csrf_token %}
-
-            {{ form.as_p }}
-
-            <button type="submit" class="btn btn-login text-white w-100">
-                Entrar
-            </button>
-
-        </form>
-
+    </div>
+    
+    <div class="text-center mt-4">
+        <p class="text-white-50 small mb-0">&copy; 2026 No Pain Gym. Academia de Talentos.</p>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
