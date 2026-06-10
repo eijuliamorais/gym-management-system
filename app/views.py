@@ -9,9 +9,11 @@ def home(request):
     total_alunos = Aluno.objects.count()
     total_planos = Plano.objects.count()
     total_pagamentos = Pagamento.objects.count()
+    total_treinos = Treino.objects.count()
     contexto = {
         'total_alunos': total_alunos,
         'total_planos': total_planos,
+        'total_treinos': total_treinos,
         'total_pagamentos': total_pagamentos,
     }
     return render(request, 'home.html', contexto)
