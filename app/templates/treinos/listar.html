@@ -1,0 +1,16 @@
+<h1>Treinos</h1>
+<a href="{% url 'criar_treino' %}">Novo treino</a>
+<table border="1">
+    <tr><th>Nome</th><th>Instrutor</th><th>Modalidade</th><th>Ações</th></tr>
+    {% for treino in treinos %}
+    <tr>
+        <td>{{ treino.nome }}</td>
+        <td>{{ treino.instrutor.nome }}</td>
+        <td>{{ treino.modalidade.nome }}</td>
+        <td>
+            <a href="{% url 'editar_treino' treino.id %}">Editar</a>
+            <a href="{% url 'excluir_treino' treino.id %}">Excluir</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
