@@ -1,16 +1,36 @@
-<h1>Treinos</h1>
-<a href="{% url 'criar_treino' %}">Novo treino</a>
-<table border="1">
-    <tr><th>Nome</th><th>Instrutor</th><th>Modalidade</th><th>Ações</th></tr>
-    {% for treino in treinos %}
-    <tr>
-        <td>{{ treino.nome }}</td>
-        <td>{{ treino.instrutor.nome }}</td>
-        <td>{{ treino.modalidade.nome }}</td>
-        <td>
-            <a href="{% url 'editar_treino' treino.id %}">Editar</a>
-            <a href="{% url 'excluir_treino' treino.id %}">Excluir</a>
-        </td>
-    </tr>
-    {% endfor %}
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Treinos</h1>
+    <a href="{% url 'criar_treino' %}" class="btn btn-primary">+ Novo Treino</a>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Nome</th>
+            <th>Instrutor</th>
+            <th>Modalidade</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for treino in treinos %}
+        <tr>
+            <td>{{ treino.nome }}</td>
+            <td>{{ treino.instrutor.nome|default:"-" }}</td>
+            <td>{{ treino.modalidade.nome|default:"-" }}</td>
+            <td>
+                <a href="{% url 'editar_treino' treino.id %}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{% url 'excluir_treino' treino.id %}" class="btn btn-sm btn-danger">Excluir</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center">Nenhum treino cadastrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
+{% endblock %}

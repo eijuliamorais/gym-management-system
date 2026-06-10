@@ -1,6 +1,13 @@
-<h1>Plano</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% if form.instance.pk %}Editar{% else %}Novo{% endif %} Plano</h1>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Salvar</button>
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{% url 'listar_planos' %}" class="btn btn-secondary">Cancelar</a>
 </form>
+{% endblock %}

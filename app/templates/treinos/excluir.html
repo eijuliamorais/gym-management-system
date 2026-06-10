@@ -1,6 +1,17 @@
-<h1>Excluir Treino</h1>
-<p>Deseja excluir o treino "{{ treino.nome }}"?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Excluir</button>
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-danger text-white">
+        <h3>Confirmar exclusão</h3>
+    </div>
+    <div class="card-body">
+        <p>Tem certeza que deseja excluir o treino <strong>{{ treino.nome }}</strong>?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sim, excluir</button>
+            <a href="{% url 'listar_treinos' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

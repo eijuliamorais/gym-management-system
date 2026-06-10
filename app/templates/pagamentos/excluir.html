@@ -1,6 +1,17 @@
-<h1>Excluir Pagamento</h1>
-<p>Deseja excluir o pagamento de {{ pagamento.aluno.nome }} no valor de {{ pagamento.valor }}?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Excluir</button>
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-danger text-white">
+        <h3>Confirmar exclusão</h3>
+    </div>
+    <div class="card-body">
+        <p>Tem certeza que deseja excluir o pagamento de <strong>{{ pagamento.aluno.nome }}</strong> no valor de {{ pagamento.valor }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sim, excluir</button>
+            <a href="{% url 'listar_pagamentos' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
