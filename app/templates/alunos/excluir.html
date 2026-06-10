@@ -1,0 +1,8 @@
+<h1>Excluir aluno</h1>
+
+<p>Deseja excluir {{ aluno.nome }}?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Excluir</button>
+</form>
