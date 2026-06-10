@@ -1,23 +1,86 @@
-<h1>Alunos</h1>
+{% extends 'base.html' %}
 
-<a href="{% url 'criar_aluno' %}">Novo aluno</a>
+{% block content %}
 
-<table border="1">
-    <tr>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Ações</th>
-    </tr>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-    {% for aluno in alunos %}
-    <tr>
-        <td>{{ aluno.nome }}</td>
-        <td>{{ aluno.email }}</td>
-        <td>
-            <a href="{% url 'editar_aluno' aluno.id %}">Editar</a>
-            <a href="{% url 'excluir_aluno' aluno.id %}">Excluir</a>
-        </td>
-    </tr>
-    
-    {% endfor %}
-</table>
+    <div>
+        <h1 class="fw-bold">Alunos</h1>
+        <p class="text-muted">Gerenciamento de alunos da academia</p>
+    </div>
+
+    <a href="{% url 'criar_aluno' %}" class="btn btn-primary">
+        Novo Aluno
+    </a>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for aluno in alunos %}
+
+                <tr>
+
+                    <td>
+                        {{ aluno.nome }}
+                    </td>
+
+                    <td>
+                        {{ aluno.email }}
+                    </td>
+
+                    <td>
+
+                        <a href="{% url 'editar_aluno' aluno.id %}"
+                           class="btn btn-warning btn-sm">
+
+                            Editar
+
+                        </a>
+
+                        <a href="{% url 'excluir_aluno' aluno.id %}"
+                           class="btn btn-danger btn-sm">
+
+                            Excluir
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="3" class="text-center text-muted">
+                        Nenhum aluno cadastrado.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

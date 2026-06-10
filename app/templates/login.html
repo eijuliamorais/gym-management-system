@@ -1,38 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - No Pain Gym</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #0d1b2a;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 450px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+        }
+
+        .btn-login {
+            background-color: #1b4f9c;
+            border: none;
+        }
+
+        .btn-login:hover {
+            background-color: #163f7a;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="container mt-5">
+<div class="card login-card">
+    <div class="card-body p-5">
 
-    <div class="row justify-content-center">
+        <div class="text-center mb-4">
 
-        <div class="col-md-4">
+            <img src="/static/img/logo.png" alt="Logo" class="logo">
 
-            <h2 class="text-center mb-4">
+            <h2 class="mt-3">
                 No Pain Gym
             </h2>
 
-            <form method="post">
-
-                {% csrf_token %}
-
-                {{ form.as_p }}
-
-                <button type="submit" class="btn btn-primary w-100">
-                    Entrar
-                </button>
-
-            </form>
+            <p class="text-muted">
+                Transforme disciplina em resultado.
+            </p>
 
         </div>
 
-    </div>
+        <form method="post">
 
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-login text-white w-100">
+                Entrar
+            </button>
+
+        </form>
+
+    </div>
 </div>
 
 </body>
