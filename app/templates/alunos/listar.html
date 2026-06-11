@@ -54,12 +54,15 @@
 
                         </a>
 
-                        <a href="{% url 'excluir_aluno' aluno.id %}"
-                           class="btn btn-danger btn-sm">
-
+                        <!-- Botão que abre o modal -->
+                        <button type="button"
+                                class="btn btn-danger btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalExcluirAluno"
+                                data-id="{{ aluno.id }}"
+                                data-nome="{{ aluno.nome }}">
                             Excluir
-
-                        </a>
+                        </button>
 
                     </td>
 
@@ -82,5 +85,52 @@
     </div>
 
 </div>
+
+<!-- Modal de confirmação de exclusão -->
+<div class="modal fade" id="modalExcluirAluno" tabindex="-1" aria-labelledby="modalExcluirAlunoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="modalExcluirAlunoLabel">Confirmar exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o aluno <strong id="nomeAlunoModal"></strong>?</p>
+                <!-- Formulário oculto que será submetido via POST -->
+                <form id="formExcluirAluno" method="post" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmarExclusaoBtn">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('modalExcluirAluno');
+        var nomeSpan = document.getElementById('nomeAlunoModal');
+        var form = document.getElementById('formExcluirAluno');
+        var confirmBtn = document.getElementById('confirmarExclusaoBtn');
+
+        modal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var nome = button.getAttribute('data-nome');
+
+            nomeSpan.textContent = nome;
+
+            // Monta a URL de exclusão (ex: /alunos/excluir/5/)
+            form.action = "{% url 'excluir_aluno' 0 %}".replace('0', id);
+        });
+
+        confirmBtn.addEventListener('click', function() {
+            form.submit();
+        });
+    });
+</script>
 
 {% endblock %}
