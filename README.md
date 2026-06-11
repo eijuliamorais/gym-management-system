@@ -22,6 +22,15 @@ Sistema de gestão de academia desenvolvido com **Django** para o trabalho da di
 
 ---
 
+### Front‑end (Interface para usuários)
+- CRUD completo de **Alunos**, **Planos**, **Pagamentos** e **Treinos**
+-  **Dashboard** com cards mostrando totais de alunos, planos e pagamentos
+-  **Autenticação de usuários** (login/logout)
+-  Interface responsiva com **Bootstrap 5**
+-  **Modais de confirmação** para exclusão de registros
+-  Menu dinâmico com acesso rápido a todas as seções
+
+---
 ## Modelos
 
 | Modelo       | Descrição                                                                 |
@@ -40,7 +49,17 @@ Sistema de gestão de academia desenvolvido com **Django** para o trabalho da di
 - Um `Aluno` pode ter múltiplos `Pagamento` (um-para-muitos)
 
 ---
+## Tecnologias utilizadas
 
+- **Python 3.10+**
+- **Django 5.x**
+- **Django Jazzmin** (tema para o admin)
+- **Bootstrap 5** (CSS/JS)
+- **SQLite3** (banco de dados local)
+- **HTML5 / CSS3 / JavaScript**
+- **Font Awesome** (ícones)
+
+---
 ## Como executar o projeto
 
 ### Pré‑requisitos
