@@ -1,17 +1,62 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card">
-    <div class="card-header bg-danger text-white">
-        <h3>Confirmar exclusão</h3>
-    </div>
-    <div class="card-body">
-        <p>Tem certeza que deseja excluir o plano <strong>{{ plano.nome }}</strong>?</p>
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Sim, excluir</button>
-            <a href="{% url 'listar_planos' %}" class="btn btn-secondary">Cancelar</a>
-        </form>
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 70vh;">
+    <div class="card border-0 shadow-lg p-3" style="max-width: 500px; width: 100%; border-radius: 16px; background-color: #ffffff;">
+        
+        <div class="card-body text-center p-4 p-sm-5">
+            <div class="bg-danger bg-opacity-10 text-danger rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                <i class="fas fa-exclamation-triangle fa-2x"></i>
+            </div>
+
+            <h3 class="fw-bold text-dark mb-3" style="font-family: 'Segoe UI', system-ui; letter-spacing: -0.5px;">
+                Confirmar Exclusão
+            </h3>
+            
+            <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.5;">
+                Tem certeza absoluta que deseja remover o plano <strong class="text-dark">{{ plano.nome }}</strong>? Esta ação é irreversível e revogará os dados do sistema.
+            </p>
+
+            <form method="post" class="d-flex flex-column flex-sm-row gap-2 justify-content-center mt-2">
+                {% csrf_token %}
+                
+                <a href="{% url 'listar_planos' %}" class="btn btn-light rounded-pill px-4 py-2 fw-semibold order-2 order-sm-1">
+                    Cancelar
+                </a>
+                
+                <button type="submit" class="btn btn-danger rounded-pill px-4 py-2 fw-semibold order-1 order-sm-2 shadow-sm">
+                    Sim, excluir plano
+                </button>
+            </form>
+        </div>
+
     </div>
 </div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .container {
+        font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    }
+    
+    .btn {
+        transition: all 0.2s ease;
+    }
+
+    .btn-danger:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3) !important;
+    }
+    
+    .btn-light {
+        background-color: #f8f9fa;
+        border: 1px solid #e5e7eb;
+    }
+    
+    .btn-light:hover {
+        background-color: #f3f4f6;
+    }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 {% endblock %}

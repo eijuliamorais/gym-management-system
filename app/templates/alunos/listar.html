@@ -1,114 +1,140 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="d-flex justify-content-between align-items-center mb-4">
-
-    <div>
-        <h1 class="fw-bold">Alunos</h1>
-        <p class="text-muted">Gerenciamento de alunos da academia</p>
+<div class="container-fluid px-0">
+  
+  <div class="row align-items-center mb-5 p-4 rounded shadow-sm" style="background-color: #0d1b2a;">
+    <div class="col-md-9 d-flex align-items-center gap-3">
+        <div class="bg-primary rounded-circle p-3 d-flex justify-content-center align-items-center" style="width: 70px; height: 70px; background-color: #1b4f9c !important;">
+          <i class="fas fa-user-graduate fa-2x text-white"></i>
+        </div>
+        <div>
+          <h1 class="fw-extrabold text-white mb-1 tracking-tight" style="font-family: 'Segoe UI', system-ui; text-transform: uppercase;">Alunos</h1>
+          <p class="text-white-50 mb-0 opacity-75">Gerenciamento centralizado de membros, matrículas e perfis da academia.</p>
+        </div>
     </div>
+    <div class="col-md-3 text-end">
+      <a href="{% url 'criar_aluno' %}" class="btn btn-primary px-4 py-2 fw-bold text-uppercase rounded-pill shadow" style="background-color: #1b4f9c; border: none; font-size: 0.9rem;">
+        <i class="fas fa-user-plus me-2"></i> Novo Aluno
+      </a>
+    </div>
+  </div>
 
-    <a href="{% url 'criar_aluno' %}" class="btn btn-primary">
-        Novo Aluno
-    </a>
+  <div class="card card-custom border-0 shadow" style="background-color: #ffffff; border-radius: 10px;">
+    <div class="card-body p-4 p-md-5">
 
-</div>
-
-<div class="card shadow-sm">
-
-    <div class="card-body">
-
-        <table class="table table-hover align-middle">
-
-            <thead class="table-dark">
-
+        <table class="table table-hover align-middle table-borderless" style="border-collapse: separate; border-spacing: 0 10px;">
+            <thead class="text-uppercase text-muted fw-bold" style="font-size: 0.8rem; border-bottom: 2px solid #ddd;">
                 <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Ações</th>
+                    <th scope="col" class="pb-3 px-4">Nome Completo</th>
+                    <th scope="col" class="pb-3 px-4">Endereço de E-mail</th>
+                    <th scope="col" class="pb-3 px-4 text-end">Ações de Gestão</th>
                 </tr>
-
             </thead>
-
             <tbody>
-
                 {% for aluno in alunos %}
-
-                <tr>
-
-                    <td>
-                        {{ aluno.nome }}
+                <tr class="shadow-sm bg-white rounded" style="transition: transform 0.2s; cursor: pointer;">
+                    
+                    <td class="p-4 rounded-start">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="https://i.pravatar.cc/150?u={{ aluno.id }}" alt="Avatar" class="rounded-circle border border-2 border-primary" style="width: 50px; height: 50px; object-fit: cover; border-color: #1b4f9c !important;">
+                            <div>
+                                <span class="fw-bold d-block text-dark" style="font-size: 1.1rem;">{{ aluno.nome }}</span>
+                                <span class="text-muted small">Matrícula: #{{ aluno.id|stringformat:'04d' }}</span>
+                            </div>
+                        </div>
                     </td>
-
-                    <td>
-                        {{ aluno.email }}
+                    
+                    <td class="p-4 text-muted" style="font-size: 1.05rem;">
+                        <i class="far fa-envelope me-2 text-muted"></i>{{ aluno.email }}
                     </td>
-
-                    <td>
-
-                        <a href="{% url 'editar_aluno' aluno.id %}"
-                           class="btn btn-warning btn-sm">
-
-                            Editar
-
-                        </a>
-
-                        <!-- Botão que abre o modal -->
-                        <button type="button"
-                                class="btn btn-danger btn-sm"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalExcluirAluno"
-                                data-id="{{ aluno.id }}"
-                                data-nome="{{ aluno.nome }}">
-                            Excluir
-                        </button>
-
+                    
+                    <td class="p-4 text-end rounded-end">
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'editar_aluno' aluno.id %}" class="btn btn-outline-warning btn-sm rounded-pill px-3 py-1 shadow-sm" title="Editar Perfil">
+                                <i class="fas fa-edit me-1"></i> Editar
+                            </a>
+                            <button type="button"
+                                    class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1 shadow-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalExcluirAluno"
+                                    data-id="{{ aluno.id }}"
+                                    data-nome="{{ aluno.nome }}"
+                                    title="Excluir Perfil">
+                                <i class="fas fa-trash-alt me-1"></i> Excluir
+                            </button>
+                        </div>
                     </td>
-
                 </tr>
-
                 {% empty %}
-
                 <tr>
-                    <td colspan="3" class="text-center text-muted">
-                        Nenhum aluno cadastrado.
+                    <td colspan="3" class="text-center p-5 rounded">
+                        <i class="fas fa-user-slash fa-4x text-muted mb-4 opacity-50"></i>
+                        <h4 class="text-muted fw-bold mb-3">Nenhum aluno cadastrado</h4>
+                        <p class="text-muted mb-4 px-5">Construa sua comunidade registrando o primeiro membro da academia.</p>
+                        <a href="{% url 'criar_aluno' %}" class="btn btn-primary px-4 py-2 fw-bold text-uppercase rounded-pill shadow" style="background-color: #1b4f9c; border: none; font-size: 0.9rem;">
+                            <i class="fas fa-user-plus me-2"></i> Criar Primeiro Aluno
+                        </a>
                     </td>
                 </tr>
-
                 {% endfor %}
-
             </tbody>
-
         </table>
 
     </div>
-
+  </div>
 </div>
 
-<!-- Modal de confirmação de exclusão -->
 <div class="modal fade" id="modalExcluirAluno" tabindex="-1" aria-labelledby="modalExcluirAlunoLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="modalExcluirAlunoLabel">Confirmar exclusão</h5>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 15px;">
+            <div class="modal-header border-0 pt-4 px-4 pb-2">
+                <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2" id="modalExcluirAlunoLabel">
+                    <i class="fas fa-exclamation-triangle text-danger"></i> Confirmar Exclusão
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir o aluno <strong id="nomeAlunoModal"></strong>?</p>
-                <!-- Formulário oculto que será submetido via POST -->
+            <div class="modal-body px-4 py-3">
+                <p class="text-muted mb-0" style="font-size: 1.05rem;">
+                    Tem certeza absoluta que deseja remover o aluno <strong id="nomeAlunoModal" class="text-dark"></strong> do sistema? Esta ação apagará permanentemente o perfil e seu histórico.
+                </p>
                 <form id="formExcluirAluno" method="post" style="display: none;">
                     {% csrf_token %}
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="confirmarExclusaoBtn">Excluir</button>
+            <div class="modal-footer border-0 pb-4 px-4 pt-2">
+                <button type="button" class="btn btn-light rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger rounded-pill px-4 fw-semibold" id="confirmarExclusaoBtn">Remover permanentemente</button>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
 
+{% block styles %}
+<style>
+    .tracking-tight {
+        letter-spacing: -0.05em;
+    }
+    .container-fluid {
+        font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        color: #333;
+    }
+    .table tbody tr {
+        border-bottom: 10px solid #f8f9fa;
+    }
+    .table tbody tr:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .btn-primary:hover {
+        background-color: #163f7a !important;
+    }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var modal = document.getElementById('modalExcluirAluno');
@@ -122,8 +148,6 @@
             var nome = button.getAttribute('data-nome');
 
             nomeSpan.textContent = nome;
-
-            // Monta a URL de exclusão (ex: /alunos/excluir/5/)
             form.action = "{% url 'excluir_aluno' 0 %}".replace('0', id);
         });
 
@@ -132,5 +156,4 @@
         });
     });
 </script>
-
 {% endblock %}

@@ -1,70 +1,144 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="row justify-content-center">
-
-    <div class="col-md-8">
-
-        <div class="card shadow-sm">
-
-            <div class="card-header bg-dark text-white">
-                <h3 class="mb-0">
-                    {% if form.instance.pk %}
-                        Editar Treino
-                    {% else %}
-                        Novo Treino
-                    {% endif %}
-                </h3>
+<div class="container-fluid px-0">
+    
+    <div class="row align-items-center mb-5 p-4 rounded shadow-sm" style="background-color: #0d1b2a;">
+        <div class="col-12 d-flex align-items-center gap-3">
+            <div class="bg-primary rounded-circle p-3 d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; background-color: #1b4f9c !important;">
+                {% if form.instance.pk %}
+                    <i class="fas fa-edit fa-xl text-white"></i>
+                {% else %}
+                    <i class="fas fa-plus fa-xl text-white"></i>
+                {% endif %}
             </div>
-
-            <div class="card-body">
-
-                <form method="post">
-
-                    {% csrf_token %}
-
-                    <div class="mb-3">
-                        <label class="form-label">Nome</label>
-                        {{ form.nome }}
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Descrição</label>
-                        {{ form.descricao }}
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Instrutor</label>
-                        {{ form.instrutor }}
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Modalidade</label>
-                        {{ form.modalidade }}
-                    </div>
-
-                    <div class="mt-4">
-
-                        <button type="submit" class="btn btn-primary">
-                            Salvar
-                        </button>
-
-                        <a href="{% url 'listar_treinos' %}"
-                           class="btn btn-secondary">
-                            Cancelar
-                        </a>
-
-                    </div>
-
-                </form>
-
+            <div>
+                <h1 class="fw-bold text-white mb-1" style="font-family: 'Segoe UI', system-ui; letter-spacing: -0.5px;">
+                    {% if form.instance.pk %} Editar Treino {% else %} Novo Treino {% endif %}
+                </h1>
+                <p class="text-white-50 mb-0 opacity-75">Preencha as informações abaixo para estruturar a ficha de exercícios.</p>
             </div>
-
         </div>
-
     </div>
 
-</div>
+    <div class="row justify-content-center">
+        <div class="col-lg-9 col-xl-8">
+            <div class="card border-0 shadow-sm" style="border-radius: 12px; background-color: #ffffff;">
+                <div class="card-body p-4 p-md-5">
+                    
+                    <form method="post" autocomplete="off" class="needs-validation">
+                        {% csrf_token %}
 
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-dark mb-2" for="{{ form.nome.id_for_label }}">
+                                <i class="fas fa-tag me-1 text-muted"></i> Nome do Treino
+                            </label>
+                            {{ form.nome }}
+                            {% if form.nome.errors %}
+                                <div class="text-danger small mt-1">{{ form.nome.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-dark mb-2" for="{{ form.descricao.id_for_label }}">
+                                <i class="fas fa-align-left me-1 text-muted"></i> Descrição / Exercícios
+                            </label>
+                            {{ form.descricao }}
+                            {% if form.descricao.errors %}
+                                <div class="text-danger small mt-1">{{ form.descricao.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold text-dark mb-2" for="{{ form.instrutor.id_for_label }}">
+                                    <i class="fas fa-user-tie me-1 text-muted"></i> Instrutor Responsável
+                                </label>
+                                {{ form.instrutor }}
+                                {% if form.instrutor.errors %}
+                                    <div class="text-danger small mt-1">{{ form.instrutor.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold text-dark mb-2" for="{{ form.modalidade.id_for_label }}">
+                                    <i class="fas fa-dumbbell me-1 text-muted"></i> Modalidade
+                                </label>
+                                {{ form.modalidade }}
+                                {% if form.modalidade.errors %}
+                                    <div class="text-danger small mt-1">{{ form.modalidade.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <hr class="text-muted opacity-25 mb-4">
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'listar_treinos' %}" class="btn btn-light rounded-pill px-4 py-2 fw-semibold border">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm" style="background-color: #1b4f9c; border: none;">
+                                <i class="fas fa-save me-1"></i> Salvar Treino
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .container-fluid {
+        font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    }
+    
+    /* Customização fina para inputs ativos */
+    .form-control:focus, .form-select:focus {
+        border-color: #1b4f9c;
+        box-shadow: 0 0 0 4px rgba(27, 79, 156, 0.12);
+    }
+    
+    .btn {
+        transition: all 0.2s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: #163f7a !important;
+        transform: translateY(-1px);
+    }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Esse script roda ao carregar a página e injeta as classes modernas do Bootstrap
+    // nos elementos que o Django renderiza automaticamente via {{ form.campo }}
+    document.addEventListener('DOMContentLoaded', function() {
+        // Encontra todos os inputs de texto e textareas dentro do form
+        const inputs = document.querySelectorAll('form input[type="text"], form textarea');
+        inputs.forEach(input => {
+            input.classList.add('form-control');
+            input.style.borderRadius = '8px';
+        });
+
+        // Encontra todos os campos de seleção (Select) de Instrutor e Modalidade
+        const selects = document.querySelectorAll('form select');
+        selects.forEach(select => {
+            select.classList.add('form-select');
+            select.style.borderRadius = '8px';
+        });
+        
+        // Define uma altura padrão menor para a área de descrição não ficar gigante
+        const textarea = document.querySelector('form textarea');
+        if (textarea) {
+            textarea.setAttribute('rows', '4');
+        }
+    });
+</script>
 {% endblock %}

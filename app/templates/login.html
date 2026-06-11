@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,7 +19,12 @@
         }
 
         body {
-            background-color: var(--bg-dark);
+            /* Carrega a imagem via Django static e centraliza perfeitamente na tela */
+            background-image: linear-gradient(rgba(13, 27, 42, 0.75), rgba(13, 27, 42, 0.85)), url("{% static 'img/background.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             height: 100vh;
             display: flex;
@@ -29,14 +35,14 @@
             overflow: hidden;
         }
 
-        /* Esferas de luz modernas ao fundo (Glow Effect) */
+        /* Mantidas as esferas de luz sutis para dar profundidade atrás do card */
         body::before, body::after {
             content: "";
             position: absolute;
             width: 300px;
             height: 300px;
             border-radius: 50%;
-            background: rgba(27, 79, 156, 0.15);
+            background: rgba(27, 79, 156, 0.2);
             filter: blur(80px);
             z-index: 0;
         }
@@ -55,7 +61,7 @@
             background-color: var(--card-bg);
             border: none;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease;
         }
 
@@ -70,7 +76,7 @@
         .form-floating > .form-control {
             border: 2px solid #e5e7eb;
             border-radius: 12px;
-            padding-left: 45px; /* Espaço para o ícone */
+            padding-left: 45px;
             font-weight: 500;
             color: #1f2937;
             height: 58px;
@@ -82,7 +88,6 @@
             box-shadow: 0 0 0 4px rgba(27, 79, 156, 0.15);
         }
 
-        /* Ajustando a posição da label por conta do espaço do ícone */
         .form-floating > label {
             padding-left: 45px;
             color: #9ca3af;
@@ -94,7 +99,6 @@
             color: var(--primary-blue);
         }
 
-        /* Posicionamento dos ícones dentro dos inputs */
         .input-group-icon {
             position: absolute;
             left: 16px;
@@ -109,7 +113,6 @@
             color: var(--primary-blue);
         }
 
-        /* Botão estilizado */
         .btn-login {
             background-color: var(--primary-blue);
             border: none;
@@ -141,7 +144,7 @@
         <div class="card-body p-4 p-sm-5">
 
             <div class="text-center mb-4">
-                <img src="/static/img/logo.png" alt="Logo No Pain Gym" class="logo mb-3">
+                <img src="{% static 'img/logo.png' %}" alt="Logo No Pain Gym" class="logo mb-3">
                 <h3 class="fw-bold text-dark mb-1" style="letter-spacing: -0.5px;">No Pain Gym</h3>
                 <p class="text-muted small">Transforme disciplina em resultado.</p>
             </div>

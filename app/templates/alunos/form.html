@@ -1,71 +1,162 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="row justify-content-center">
-
-    <div class="col-md-8">
-
-        <div class="card shadow-sm">
-
-            <div class="card-header bg-dark text-white">
-                <h3 class="mb-0">Cadastro de Aluno</h3>
+<div class="container-fluid px-0">
+    
+    <div class="row align-items-center mb-5 p-4 rounded shadow-sm" style="background-color: #0d1b2a;">
+        <div class="col-12 d-flex align-items-center gap-3">
+            <div class="bg-primary rounded-circle p-3 d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; background-color: #1b4f9c !important;">
+                {% if form.instance.pk %}
+                    <i class="fas fa-user-edit fa-xl text-white"></i>
+                {% else %}
+                    <i class="fas fa-user-plus fa-xl text-white"></i>
+                {% endif %}
             </div>
-
-            <div class="card-body">
-
-                <form method="post">
-
-                    {% csrf_token %}
-
-                    <div class="mb-3">
-                        <label class="form-label">Nome</label>
-                        {{ form.nome }}
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        {{ form.email }}
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Telefone</label>
-                        {{ form.telefone }}
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Idade</label>
-                        {{ form.idade }}
-                    </div>
-
-                    <div class="form-check mb-3">
-                        {{ form.ativo }}
-                        <label class="form-check-label">
-                            Aluno ativo
-                        </label>
-                    </div>
-
-                    <div class="mt-4">
-
-                        <button type="submit" class="btn btn-primary">
-                            Salvar
-                        </button>
-
-                        <a href="{% url 'listar_alunos' %}"
-                        class="btn btn-secondary">
-                            Cancelar
-                        </a>
-
-                    </div>
-
-                </form>
-
+            <div>
+                <h1 class="fw-bold text-white mb-1" style="font-family: 'Segoe UI', system-ui; letter-spacing: -0.5px;">
+                    {% if form.instance.pk %} Editar Aluno {% else %} Novo Aluno {% endif %}
+                </h1>
+                <p class="text-white-50 mb-0 opacity-75">Cadastre ou atualize as informações de perfil e contato do membro.</p>
             </div>
-
         </div>
-
     </div>
 
-</div>
+    <div class="row justify-content-center">
+        <div class="col-lg-9 col-xl-8">
+            <div class="card border-0 shadow-sm" style="border-radius: 12px; background-color: #ffffff;">
+                <div class="card-body p-4 p-md-5">
+                    
+                    <form method="post" autocomplete="off" class="needs-validation">
+                        {% csrf_token %}
 
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-dark mb-2" for="{{ form.nome.id_for_label }}">
+                                <i class="fas fa-user me-1 text-muted"></i> Nome Completo
+                            </label>
+                            {{ form.nome }}
+                            {% if form.nome.errors %}
+                                <div class="text-danger small mt-1">{{ form.nome.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-dark mb-2" for="{{ form.email.id_for_label }}">
+                                <i class="fas fa-envelope me-1 text-muted"></i> Endereço de E-mail
+                            </label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger small mt-1">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold text-dark mb-2" for="{{ form.telefone.id_for_label }}">
+                                    <i class="fas fa-phone me-1 text-muted"></i> Telefone / WhatsApp
+                                </label>
+                                {{ form.telefone }}
+                                {% if form.telefone.errors %}
+                                    <div class="text-danger small mt-1">{{ form.telefone.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold text-dark mb-2" for="{{ form.idade.id_for_label }}">
+                                    <i class="fas fa-calendar me-1 text-muted"></i> Idade
+                                </label>
+                                {{ form.idade }}
+                                {% if form.idade.errors %}
+                                    <div class="text-danger small mt-1">{{ form.idade.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-5 mt-2">
+                            <div class="form-check form-switch p-0 d-flex align-items-center gap-3">
+                                <div class="position-relative">
+                                    {{ form.ativo }}
+                                </div>
+                                <label class="form-check-label fw-semibold text-dark cursor-pointer" for="{{ form.ativo.id_for_label }}" style="user-select: none;">
+                                    Status do Aluno (Ativo no Sistema)
+                                </label>
+                            </div>
+                            {% if form.ativo.errors %}
+                                <div class="text-danger small mt-1">{{ form.ativo.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <hr class="text-muted opacity-25 mb-4">
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'listar_alunos' %}" class="btn btn-light rounded-pill px-4 py-2 fw-semibold border">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm" style="background-color: #1b4f9c; border: none;">
+                                <i class="fas fa-save me-1"></i> Salvar Aluno
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .container-fluid {
+        font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    }
+    
+    /* Customização dos inputs focados */
+    .form-control:focus, .form-check-input:focus {
+        border-color: #1b4f9c;
+        box-shadow: 0 0 0 4px rgba(27, 79, 156, 0.12);
+    }
+
+    /* Estilização moderna para o checkbox padrão virar um switch limpo */
+    .form-check-input {
+        width: 2.5em !important;
+        height: 1.25em !important;
+        margin-left: 0 !important;
+        cursor: pointer;
+    }
+    
+    .cursor-pointer {
+        cursor: pointer;
+    }
+    
+    .btn {
+        transition: all 0.2s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: #163f7a !important;
+        transform: translateY(-1px);
+    }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Injeta dinamicamente as classes Bootstrap nos campos automáticos do Django
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inputs de texto, e-mail, número e telefone
+        const inputs = document.querySelectorAll('form input[type="text"], form input[type="email"], form input[type="number"], form input[type="tel"]');
+        inputs.forEach(input => {
+            input.classList.add('form-control');
+            input.style.borderRadius = '8px';
+        });
+
+        // Configura o checkbox padrão do Django com a classe Switch do Bootstrap 5
+        const checkbox = document.querySelector('form input[type="checkbox"]');
+        if (checkbox) {
+            checkbox.classList.add('form-check-input');
+        }
+    });
+</script>
 {% endblock %}
