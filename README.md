@@ -99,4 +99,4 @@ Sistema de gestão de academia desenvolvido com **Django** para o trabalho da di
 8. **Acesse o sistema**
    ```bash
    Admin: http://127.0.0.1:8000/admin (use o superusuário criado)
-   Página inicial padrão (será customizada futuramente)
+   Página inicial: http://127.0.0.1:8000/
